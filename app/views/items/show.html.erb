@@ -1,0 +1,33 @@
+<p>
+  <b>Title:</b>
+  <%=h @item.title %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%=h @item.type %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @item.status %>
+</p>
+
+<p>
+  <b>Checkout date:</b>
+  <%=h @item.checkout_date %>
+</p>
+
+<p>
+  <b>Due date:</b>
+  <%=h @item.due_date %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @item.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>

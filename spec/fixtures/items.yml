@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  type: MyString
+  status: MyString
+  checkout_date: 2009-10-26
+  due_date: 2009-10-26
+  user_id: 1
+
+two:
+  title: MyString
+  type: MyString
+  status: MyString
+  checkout_date: 2009-10-26
+  due_date: 2009-10-26
+  user_id: 1
