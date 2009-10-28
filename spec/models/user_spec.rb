@@ -38,37 +38,6 @@ describe User do
   # Validations
   #
 
-  it 'requires login' do
-    lambda do
-      u = create_user(:login => nil)
-      u.errors.on(:login).should_not be_nil
-    end.should_not change(User, :count)
-  end
-
-  describe 'allows legitimate logins:' do
-    ['123', '1234567890_234567890_234567890_234567890',
-     'hello.-_there@funnychar.com'].each do |login_str|
-      it "'#{login_str}'" do
-        lambda do
-          u = create_user(:login => login_str)
-          u.errors.on(:login).should     be_nil
-        end.should change(User, :count).by(1)
-      end
-    end
-  end
-  describe 'disallows illegitimate logins:' do
-    ['12', '1234567890_234567890_234567890_234567890_', "tab\t", "newline\n",
-     "Iñtërnâtiônàlizætiøn hasn't happened to ruby 1.8 yet",
-     'semicolon;', 'quote"', 'tick\'', 'backtick`', 'percent%', 'plus+', 'space '].each do |login_str|
-      it "'#{login_str}'" do
-        lambda do
-          u = create_user(:login => login_str)
-          u.errors.on(:login).should_not be_nil
-        end.should_not change(User, :count)
-      end
-    end
-  end
-
   it 'requires password' do
     lambda do
       u = create_user(:password => nil)
@@ -147,12 +116,12 @@ describe User do
 
   it 'resets password' do
     users(:quentin).update_attributes(:password => 'new password', :password_confirmation => 'new password')
-    User.authenticate('quentin', 'new password').should == users(:quentin)
+    User.authenticate('quentin@example.com', 'new password').should == users(:quentin)
   end
 
   it 'does not rehash password' do
-    users(:quentin).update_attributes(:login => 'quentin2')
-    User.authenticate('quentin2', 'monkey').should == users(:quentin)
+    users(:quentin).update_attributes(:email => 'quentin2@example.com')
+    User.authenticate('quentin2@example.com', 'monkey').should == users(:quentin)
   end
 
   #
@@ -160,7 +129,7 @@ describe User do
   #
 
   it 'authenticates user' do
-    User.authenticate('quentin', 'monkey').should == users(:quentin)
+    User.authenticate('quentin@example.com', 'monkey').should == users(:quentin)
   end
 
   it "doesn't authenticate user with bad password" do
