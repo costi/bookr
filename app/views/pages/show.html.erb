@@ -1,0 +1,23 @@
+<p>
+  <b>User:</b>
+  <%=h @page.user_id %>
+</p>
+
+<p>
+  <b>Log:</b>
+  <%=h @page.log %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @page.status %>
+</p>
+
+<p>
+  <b>Document:</b>
+  <%=h @page.document %>
+</p>
+
+
+<%= link_to 'Edit', edit_page_path(@page) %> |
+<%= link_to 'Back', pages_path %>

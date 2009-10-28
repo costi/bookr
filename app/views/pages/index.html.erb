@@ -1,0 +1,26 @@
+<h1>Listing pages</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Log</th>
+    <th>Status</th>
+    <th>Document</th>
+  </tr>
+
+<% @pages.each do |page| %>
+  <tr>
+    <td><%=h page.user_id %></td>
+    <td><%=h page.log %></td>
+    <td><%=h page.status %></td>
+    <td><%=h page.document %></td>
+    <td><%= link_to 'Show', page %></td>
+    <td><%= link_to 'Edit', edit_page_path(page) %></td>
+    <td><%= link_to 'Destroy', page, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New page', new_page_path %>

@@ -1,0 +1,28 @@
+<h1>Editing page</h1>
+
+<% form_for(@page) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :log %><br />
+    <%= f.text_field :log %>
+  </p>
+  <p>
+    <%= f.label :status %><br />
+    <%= f.check_box :status %>
+  </p>
+  <p>
+    <%= f.label :document %><br />
+    <%= f.text_area :document %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @page %> |
+<%= link_to 'Back', pages_path %>
