@@ -12,7 +12,42 @@ describe Item do
     }
   end
 
-  it "should create a new instance given valid attributes" do
-    Item.create!(@valid_attributes)
+  describe "should allow legitimate statuses" do
+    %w(held checked_out overdue returned).each do |status|
+      it ": #{status}" do 
+        lambda do
+          item = Item.create(:status => status)
+          item.errors.on(:status).should_no be_nil
+        end.should_not change(Item, :count)
+      end
+      
+    end
+  end
+  
+  it 'should have only valid states' do
+    lambda do
+      item = Item.create(:status => nil)
+      item.errors.on(:user_id).should_not be_nil
+    end.should_not change(Item, :count)        
+  end
+  
+  
+  #
+  # Validations
+  #
+  
+  it 'requires user_id' do
+    lambda do
+      item = Item.create(:user_id => nil)
+      item.errors.on(:user_id).should_not be_nil
+    end.should_not change(Item, :count)    
+  end
+  
+  
+  it 'requires title' do
+    lambda do
+      item = Item.create(:title => nil)
+      item.errors.on(:title).should_not be_nil
+    end.should_not change(Item, :count)    
   end
 end
