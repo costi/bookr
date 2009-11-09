@@ -9,6 +9,10 @@ class CplParser
   end
 
   def held_items
+    doc = Nokogiri::HTML(@held_items_doc)
+    # I go the the holds text and then I go to its parent to get to the table containing the holds 
+    rows = doc.css('h3#holds').first.parent.parent.css('table tr')
+
     
   end
 
