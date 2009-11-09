@@ -17,17 +17,17 @@ describe Item do
       it ": #{status}" do 
         lambda do
           item = Item.create(:status => status)
-          item.errors.on(:status).should_no be_nil
+          item.errors.on(:status).should be_nil
         end.should_not change(Item, :count)
       end
       
     end
   end
   
-  it 'should have only valid states' do
+  it 'should have only valid statuses' do
     lambda do
-      item = Item.create(:status => nil)
-      item.errors.on(:user_id).should_not be_nil
+      item = Item.create(:status => 'NonXstent')
+      item.errors.on(:status).should_not be_nil
     end.should_not change(Item, :count)        
   end
   
