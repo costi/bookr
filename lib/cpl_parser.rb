@@ -16,12 +16,22 @@ class CplParser
     items = []
     rows.each do |row|
       row = row.css('td')
-      items << Item.new(:title => row[1].content, :status => row[2].content)
+      items << Item.new(:title => row[1].content, :status => row[2].content, :pickup_by => row[4].content)
     end
     items
   end
 
   def checked_out_items
+    doc = Nokogiri::HTML(@checked_out_items_doc)
+    # I go the the checkedout text and then I go to its parent to get to the table containing the items 
+    rows = doc.css('h3#checkedOut').first.parent.parent.css('table tr')
+    rows.delete(rows.first)  # exclude the header
+    items = []
+    rows.each do |row|
+      row = row.css('td')
+      items << Item.new(:title => row[1].content, :status => 'Checked out', :due_date => row[3].content)
+    end
+    items
     
   end
   

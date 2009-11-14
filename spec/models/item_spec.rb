@@ -13,7 +13,7 @@ describe Item do
   end
 
   describe "should allow legitimate statuses" do
-    %w(held checked_out overdue returned ready_for_pickup).each do |status|
+    ['Held', 'Checked out', 'Overdue', 'Returned', 'Ready for pickup'].each do |status|
       it ": #{status}" do 
         lambda do
           item = Item.create(:status => status)
