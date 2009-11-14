@@ -12,8 +12,13 @@ class CplParser
     doc = Nokogiri::HTML(@held_items_doc)
     # I go the the holds text and then I go to its parent to get to the table containing the holds 
     rows = doc.css('h3#holds').first.parent.parent.css('table tr')
-
-    
+    rows.delete(rows.first)  # exclude the header
+    items = []
+    rows.each do |row|
+      row = row.css('td')
+      items << Item.new(:title => row[1].content, :status => row[2].content)
+    end
+    items
   end
 
   def checked_out_items
@@ -33,4 +38,5 @@ class CplParser
     amount = doc.css('div.mycpl_green').last.css('table tr').last.css('td').last.content.delete('$')
     BigDecimal.new(amount)
   end
+  
 end
