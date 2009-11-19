@@ -1,0 +1,24 @@
+<h1>Listing cpl_library_cards</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Number</th>
+    <th>Zip code</th>
+  </tr>
+
+<% @cpl_library_cards.each do |cpl_library_card| %>
+  <tr>
+    <td><%=h cpl_library_card.user_id %></td>
+    <td><%=h cpl_library_card.number %></td>
+    <td><%=h cpl_library_card.zip_code %></td>
+    <td><%= link_to 'Show', cpl_library_card %></td>
+    <td><%= link_to 'Edit', edit_cpl_library_card_path(cpl_library_card) %></td>
+    <td><%= link_to 'Destroy', cpl_library_card, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New cpl_library_card', new_cpl_library_card_path %>

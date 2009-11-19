@@ -40,4 +40,24 @@ describe CplParser do
     p.checked_out_items[1].title.should == 'El vendedor de sueños'
     p.checked_out_items[2].title.should == 'Cómo iniciar su propio negocio /'
   end
+  
+  it "should return an array of all items " do
+    p = CplParser.new(:all => File.read(File.join(fixture_path, 'cpl', 'cpl_checkedout_overdue_on_hold.html')))
+    p.items.size.should == 5+4+1
+  end
+
+  it 'should get the correct number of overdue items' do
+    p = CplParser.new(:all => File.read(File.join(fixture_path, 'cpl', 'cpl_checkedout_overdue_on_hold.html')))
+    p.overdue_items.size.should == 1       
+  end
+ 
+  it 'should parse an overdue items row' do
+    p = CplParser.new(:all => File.read(File.join(fixture_path, 'cpl', 'cpl_checkedout_overdue_on_hold.html')))
+    co_item = p.overdue_items.first
+    pending #Need to figure out unicode
+    co_item.title.should == "Cría cuervos"
+    co_item.status.should == 'Overdue'
+    co_item.due_date.should == Date.parse('11/04/2009')
+  end
+
 end

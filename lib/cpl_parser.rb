@@ -5,7 +5,6 @@ class CplParser
     if options[:all]
       @held_items_doc = @checked_out_items_doc = @overdue_items_doc = @total_fine_amount_doc = options[:all]
     end
-    
   end
 
   def held_items
@@ -36,10 +35,16 @@ class CplParser
   end
   
   def overdue_items
-    
-  end
-  
-  def returned_items
+    doc = Nokogiri::HTML(@overdue_items_doc)
+    # I go the the Overdue text and then I go to its parent to get to the table containing the items 
+    rows = doc.css('h3#overdues').first.parent.parent.css('table tr')
+    rows.delete(rows.first)  # exclude the header
+    items = []
+    rows.each do |row|
+      row = row.css('td')
+      items << Item.new(:title => row[1].content, :status => 'Checked out', :due_date => row[3].content)
+    end
+    items
     
   end
   
@@ -48,5 +53,9 @@ class CplParser
     amount = doc.css('div.mycpl_green').last.css('table tr').last.css('td').last.content.delete('$')
     BigDecimal.new(amount)
   end
+  
+  def items
+    overdue_items + checked_out_items + held_items
+  end  
   
 end
