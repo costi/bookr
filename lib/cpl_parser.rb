@@ -42,7 +42,7 @@ class CplParser
     items = []
     rows.each do |row|
       row = row.css('td')
-      items << Item.new(:title => row[1].content, :status => 'Checked out', :due_date => row[3].content)
+      items << Item.new(:title => row[1].content, :status => 'Overdue', :due_date => row[3].content)
     end
     items
     
