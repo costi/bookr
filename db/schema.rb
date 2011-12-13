@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091114201923) do
+ActiveRecord::Schema.define(:version => 20091119023117) do
+
+  create_table "cpl_library_cards", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "number"
+    t.string   "zip_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "items", :force => true do |t|
     t.string   "title"

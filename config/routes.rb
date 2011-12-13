@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :cpl_library_cards
+
   map.resources :pages
 
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
